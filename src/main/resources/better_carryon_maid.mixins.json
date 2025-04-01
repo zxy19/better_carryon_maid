@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "studio.fantasyit.better_carryon_maid.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "better_carryon_maid.refmap.json",
+  "mixins": [
+    "CarryOnDisableMaidRender",
+    "CarryOnPickMaidDataModify",
+    "CarryOnPlaceMaidDataModify"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
