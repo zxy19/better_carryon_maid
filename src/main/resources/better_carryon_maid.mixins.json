@@ -7,7 +7,8 @@
   "mixins": [
     "CarryOnDisableMaidRender",
     "CarryOnPickMaidDataModify",
-    "CarryOnPlaceMaidDataModify"
+    "CarryOnPlaceMaidDataModify",
+    "EntityMaidNoPick"
   ],
   "client": [
   ],
