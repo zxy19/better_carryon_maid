@@ -20,7 +20,7 @@ public class ServerPlayerTick {
             return;
         if (event.phase == TickEvent.Phase.END) {
             CarryOnData data = CarryOnDataManager.getCarryData(event.player);
-            if (data.isCarrying()) {
+            if (data.isCarrying(CarryOnData.CarryType.ENTITY)) {
                 Entity carried = data.getEntity(event.player.level());
                 Entity passenger = event.player.getFirstPassenger();
                 if (carried instanceof EntityMaid && !(passenger instanceof EntityMaid)) {
