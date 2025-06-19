@@ -23,8 +23,18 @@ import java.util.function.BiFunction;
 
 @Mixin(PlacementHandler.class)
 public class CarryOnPlaceMaidDataModify {
-    @ModifyVariable(method = {"tryPlaceEntity", "tryStackEntity"}, at = @At(value = "INVOKE_ASSIGN", target = "Ltschipp/carryon/common/carry/CarryOnData;getEntity(Lnet/minecraft/world/level/Level;)Lnet/minecraft/world/entity/Entity;", shift = At.Shift.AFTER), remap = false, name = "entity")
+    @ModifyVariable(method = "tryPlaceEntity", at = @At(value = "INVOKE_ASSIGN", target = "Ltschipp/carryon/common/carry/CarryOnData;getEntity(Lnet/minecraft/world/level/Level;)Lnet/minecraft/world/entity/Entity;", shift = At.Shift.AFTER), remap = false, name = "entity")
     private static Entity modifyData(Entity entity, @Local(argsOnly = true) ServerPlayer player) {
+        if (entity instanceof EntityMaid) {
+            Entity firstPassenger = player.getFirstPassenger();
+            if (firstPassenger != null)
+                return firstPassenger;
+            return new AreaEffectCloud(player.level(), 0.0, 0.0, 0.0);
+        }
+        return entity;
+    }
+    @ModifyVariable(method = "tryStackEntity", at = @At(value = "INVOKE_ASSIGN", target = "Ltschipp/carryon/common/carry/CarryOnData;getEntity(Lnet/minecraft/world/level/Level;)Lnet/minecraft/world/entity/Entity;", shift = At.Shift.AFTER), remap = false, name = "entityHeld")
+    private static Entity modifyDataStacking(Entity entity, @Local(argsOnly = true) ServerPlayer player) {
         if (entity instanceof EntityMaid) {
             Entity firstPassenger = player.getFirstPassenger();
             if (firstPassenger != null)
